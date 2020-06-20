@@ -4,3 +4,4 @@ database.ini
 training_data/
 reduced_training_data/
 checkpoints/
+.tmp.drivedownload/
