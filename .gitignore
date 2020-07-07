@@ -3,5 +3,16 @@ aircraft-data/
 database.ini
 training_data/
 reduced_training_data/
-checkpoints/
+*.data
+*.data-00000-of-00002
+*.data-00001-of-00002
+*.ckpt.data-00000-of-00002
+*.ckpt.data-00001-of-00002
+*.ckpt
+checkpoints/**/*.data
+checkpoints/**/*.data-00000-of-00002
+checkpoints/**/*.data-00001-of-00002
+checkpoints/**/*.ckpt.data-00000-of-00002
+checkpoints/**/*.ckpt.data-00001-of-00002
+checkpoints/**/*.ckpt
 .tmp.drivedownload/
