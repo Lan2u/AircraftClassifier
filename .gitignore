@@ -15,4 +15,5 @@ checkpoints/**/*.data-00001-of-00002
 checkpoints/**/*.ckpt.data-00000-of-00002
 checkpoints/**/*.ckpt.data-00001-of-00002
 checkpoints/**/*.ckpt
+/checkpoints/20-06-2020-14-30-32/final_model.h5
 .tmp.drivedownload/
