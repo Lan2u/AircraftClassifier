@@ -5,6 +5,18 @@
     <title>API Description</title>
 </head>
 <body>
-    Coming soon...
+    <h1>predict/aircraft/variant/</h1>
+    HTTP POST
+    <h2>Request:</h2>
+    FormData: Image (jpg or png, 5MB max, name 'predictFile')
+    <h2>Response:</h2>
+        {
+            file-name: string,
+            predictions:
+            [{
+                varient_name: string,
+                probability: float in range [0, 1]
+            }],
+        }
 </body>
 </html>
