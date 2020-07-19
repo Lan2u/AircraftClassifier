@@ -2,7 +2,7 @@ console.log("Predict JS loaded");
 
 // The API endpoint used for prediction.
 // Important to make sure that the API url starts with an allowed protocol (in this case http:) otherwise
-// chrome won't allow the request.
+// chrome won't allow the request (reported as CORS error).
 const API_PREDICT_ENDPOINT = "http://localhost:8000/predict/aircraft/variant/";
 
 // Timeout the prediction request after 3000 milliseconds.
@@ -19,17 +19,12 @@ function fileUploadFailed() {
 
 // Called on prediction failure (signalled by the API response).
 function predictionFailed(error) {
-    console.log("Failed to run prediction");
-}
-
-// Called if the prediction attempt times-out before receiving a response.
-function predictionTimeout() {
-
+    console.log("Failed to run prediction: " + error.toString());
 }
 
 // Called on prediction success.
 function predictionSuccess(data) {
-    clearTimeout();
+    console.log("Successfully run prediction")
 }
 
 // Called on progress updates when uploading a prediction request.
@@ -46,7 +41,7 @@ function predictionProgress(event) {
     // $(progress_bar_id + " .status").text(percent + "%");
 }
 
-function performPrediction(file, name) {
+function performPrediction(file) {
     let formData = new FormData();
     formData.append("predictFile", file);
     $.ajax({
@@ -66,14 +61,14 @@ function performPrediction(file, name) {
         cache: false,
         contentType: false,
         processData: false,
-        timeout: 60000,
+        timeout: PREDICTION_TIMEOUT_MS,
         credentials: 'include'
     });
 }
 
 $(function() {
     $("#predict_image_form").submit(function(e) {
-        e.preventDefault();
+        e.preventDefault(); // Prevent the default action of refreshing.
 
         console.log("Image submitted");
         let file = $('#aircraft_img').prop('files')[0];
@@ -82,8 +77,7 @@ $(function() {
             fileUploadFailed();
         } else {
             startWaitingForPredict();
-            performPrediction(file, file.name); // Now wait for callback.
-            setTimeout(predictionTimeout, PREDICTION_TIMEOUT_MS);
+            performPrediction(file, file.name); // Now wait for callback from API (or timeout).
         }
         return false; // Don't refresh
     });

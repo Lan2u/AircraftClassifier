@@ -1,11 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from django.template import loader
 
 from django.views.decorators.csrf import csrf_exempt
-
-import time
-import json
 
 
 # Create your views here.
