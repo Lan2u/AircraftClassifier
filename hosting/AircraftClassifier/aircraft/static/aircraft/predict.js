@@ -1,7 +1,9 @@
 console.log("Predict JS loaded");
 
 // The API endpoint used for prediction.
-const API_PREDICT_ENDPOINT = "http://localhost:8000/aircraft/variant/predict/";
+// Important to make sure that the API url starts with an allowed protocol (in this case http:) otherwise
+// chrome won't allow the request.
+const API_PREDICT_ENDPOINT = "http://localhost:8000/predict/aircraft/variant/";
 
 // Timeout the prediction request after 3000 milliseconds.
 const PREDICTION_TIMEOUT_MS = 3000;
@@ -49,6 +51,8 @@ function performPrediction(file, name) {
     formData.append("file", file, name)
     formData.append("upload_file", true)
 
+    let headers = new Headers();
+
     $.ajax({
         type: "POST",
         url: API_PREDICT_ENDPOINT,
@@ -66,7 +70,9 @@ function performPrediction(file, name) {
         cache: false,
         contentType: false,
         processData: false,
-        timeout: 60000
+        timeout: 60000,
+        // headers: headers,
+        credentials: 'include'
     });
 }
 

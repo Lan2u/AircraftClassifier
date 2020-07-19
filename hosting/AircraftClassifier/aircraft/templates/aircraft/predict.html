@@ -18,8 +18,9 @@
             Predict Aircraft Variant
         </h1>
         <form id="predict_image_form" class="submitImgForm">
+            {% csrf_token %}
             <label for="aircraft_img">Submit an aircraft image:</label>
-            <input type="file" id="aircraft_img" name="aircraft_img" accept="image/png, image/jpeg">
+            <input type="file" id="aircraft_img" name="aircraft_img" accept="image/png, image/jpeg"/>
             <button type="submit">Submit</button>
         </form>
     </body>
