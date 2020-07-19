@@ -20,5 +20,6 @@ from aircraft import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('predict/', views.predict_image, name='predict')
+    path('predict/', views.predict_image, name='predict'),
+    path('predict/aircraft/variant/', views.predict_aircraft_variant)
 ]
