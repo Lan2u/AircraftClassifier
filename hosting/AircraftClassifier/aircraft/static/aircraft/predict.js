@@ -44,6 +44,7 @@ function predictionProgress(event) {
 function performPrediction(file) {
     let formData = new FormData();
     formData.append("predictFile", file);
+
     $.ajax({
         type: "POST",
         url: API_PREDICT_ENDPOINT,
@@ -67,6 +68,15 @@ function performPrediction(file) {
 }
 
 $(function() {
+    // Setup CSRF.
+    $.ajaxSetup({
+       beforeSend: function(xhr, settings) {
+           if (!this.crossDomain) {
+               xhr.setRequestHeader("X-CSRFToken", Cookies.get('csrftoken'));
+           }
+       }
+    });
+
     $("#predict_image_form").submit(function(e) {
         e.preventDefault(); // Prevent the default action of refreshing.
 

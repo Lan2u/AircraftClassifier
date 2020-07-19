@@ -3,7 +3,6 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.views.generic import TemplateView
 
-
 class PredictAircraftVariant(TemplateView):
     ENDPOINT = 'predict/aircraft/variant/'
 

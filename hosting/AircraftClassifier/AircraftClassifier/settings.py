@@ -129,3 +129,10 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 # Allows uploading files upto 5MB in size to the API.
 DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880
+
+# CSRF Settings
+# Just using a cookie is sufficient (rather than containing the cookie in a session).
+CSRF_USE_SESSIONS = False # False is default
+
+# Kept as False as client-side javascript needs to be able to access the CSRF cookie.
+CSRF_COOKIE_HTTPONLY = False # False is default
