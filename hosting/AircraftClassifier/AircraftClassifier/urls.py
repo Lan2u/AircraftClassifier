@@ -16,10 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from aircraft import views
+from aircraft.views.PredictAircraftVariant import PredictAircraftVariant
+from aircraft.views.PredictImagePage import PredictImagePage
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('predict/', views.predict_image, name='predict'),
-    path('predict/aircraft/variant/', views.predict_aircraft_variant)
+    path(PredictImagePage.ENDPOINT, PredictImagePage.as_view()),
+    path(PredictAircraftVariant.ENDPOINT, PredictAircraftVariant.as_view()),
 ]
