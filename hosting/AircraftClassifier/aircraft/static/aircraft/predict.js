@@ -48,8 +48,9 @@ function predictionProgress(event) {
 
 function performPrediction(file, name) {
     let formData = new FormData();
-    formData.append("file", file, name)
-    formData.append("upload_file", true)
+    formData.append("file1", file);
+    // const data_ = JSON.stringify(data)
+    // formData.append("upload_file", true)
 
     let headers = new Headers();
 
@@ -71,7 +72,6 @@ function performPrediction(file, name) {
         contentType: false,
         processData: false,
         timeout: 60000,
-        // headers: headers,
         credentials: 'include'
     });
 }

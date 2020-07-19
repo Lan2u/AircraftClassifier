@@ -126,3 +126,6 @@ STATIC_URL = '/static/'
 # Allowing all crossorigin requests.
 # This should be eventually replaced with CORS_ORIGIN_WHITELIST.
 CORS_ORIGIN_ALLOW_ALL = True
+
+# Allows uploading files upto 5MB in size to the API.
+DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880
