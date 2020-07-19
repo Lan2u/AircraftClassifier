@@ -48,12 +48,7 @@ function predictionProgress(event) {
 
 function performPrediction(file, name) {
     let formData = new FormData();
-    formData.append("file1", file);
-    // const data_ = JSON.stringify(data)
-    // formData.append("upload_file", true)
-
-    let headers = new Headers();
-
+    formData.append("predictFile", file);
     $.ajax({
         type: "POST",
         url: API_PREDICT_ENDPOINT,
