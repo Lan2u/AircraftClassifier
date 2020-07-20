@@ -15,20 +15,21 @@ PIXEL_RESCALE = 1./255
 # The variant categories.
 TEST_CLASSES = ["707-320", "737-800", "777-200", "a330-200", "bae 146-300", "c-130", "eurofighter typhoon", "md-80", "spitfire"]
 
+
 class VariantClassifier:
-    def __init__(self):
-        # model_path = os.path.join(os.getcwd(), 'aircraft', 'classifier', 'trained_model')
-        model_path = os.path.join(os.getcwd(), 'classifier', 'trained_model')
+    def __init__(self, model_path):
         self.model = keras.models.load_model(model_path)
 
-    def load_image(self, bytes):
-        # image = PIL.Image.frombytes()
-        # data = io.BytesIO(bytes)
-        # return PIL.Image.open(data)
-        # image.show()
-        return tf.image.decode_image(bytes, channels=3, dtype=tf.dtypes.float32)
+    @staticmethod
+    def class_count():
+        return len(TEST_CLASSES)
 
-    def preprocess(self, img):
+    @classmethod
+    def load_image(cls, b):
+        return tf.image.decode_image(b, channels=3, dtype=tf.dtypes.float32)
+
+    @classmethod
+    def preprocess(cls, img):
         # resized = img.transform(size=(IMG_WIDTH, IMG_HEIGHT), method=PIL.Image.AFFINE)
         resized = tf.image.resize(img, [IMG_HEIGHT, IMG_WIDTH])
         normalised = resized * PIXEL_RESCALE
@@ -48,10 +49,12 @@ class VariantClassifier:
 
         predictions = (predictions / numpy.sum(predictions))
 
+        formatted = []
+
         for i, percentage in enumerate(predictions):
-            predictions[i] = {
+            formatted.append({
                 'variant_name': TEST_CLASSES[i],
                 'probability': percentage
-            }
+            })
 
-        return predictions
+        return formatted

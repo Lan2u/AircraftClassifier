@@ -3,8 +3,11 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.views.generic import TemplateView
 
+import os
+
 from aircraft.classifier.VariantClassifier import VariantClassifier
 
+MODEL_PATH = os.path.join(os.getcwd(), 'aircraft', 'classifier', 'trained_model')
 
 class PredictAircraftVariant(TemplateView):
     ENDPOINT = 'predict/aircraft/variant/'
@@ -13,7 +16,7 @@ class PredictAircraftVariant(TemplateView):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.classifier = VariantClassifier()
+        self.classifier = VariantClassifier(MODEL_PATH)
 
 
     @csrf_exempt
