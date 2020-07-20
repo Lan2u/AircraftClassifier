@@ -4,31 +4,35 @@ from django.http import JsonResponse
 from django.views.generic import TemplateView
 
 import os
+import json
 
 from aircraft.classifier.VariantClassifier import VariantClassifier
 
 MODEL_PATH = os.path.join(os.getcwd(), 'aircraft', 'classifier', 'trained_model')
+
 
 class PredictAircraftVariant(TemplateView):
     ENDPOINT = 'predict/aircraft/variant/'
 
     template_name = 'aircraft/api.html'
 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.classifier = VariantClassifier(MODEL_PATH)
+    # Statically loaded as otherwise each request needs to reload the model which takes too long.
+    classifier = VariantClassifier(MODEL_PATH)
 
-
-    @csrf_exempt
     def post(self, request):
-        print("Predict aircraft variant called")
         img = request.FILES['predictFile'].read()
-        res = self.classifier.predict(img)
-        print(res)
+        res = PredictAircraftVariant.classifier.predict(img)
+
+        stringify = []
+        for r in res:
+            stringify.append({
+                'variant_name': r['variant_name'],
+                'probability': str(r['probability'])
+            })
 
         result = {
-            'file-name': request.FILES['predictFile'].name(),
-            'predictions': res
+            'file-name': str(request.FILES['predictFile']),
+            'predictions': json.dumps(stringify)
         }
 
         # with open('temp.jpg', 'wb') as temp:
