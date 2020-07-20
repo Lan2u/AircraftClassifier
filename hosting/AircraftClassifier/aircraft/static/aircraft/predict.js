@@ -25,6 +25,7 @@ function predictionFailed(error) {
 // Called on prediction success.
 function predictionSuccess(data) {
     console.log("Successfully run prediction")
+    console.log(data)
 }
 
 // Called on progress updates when uploading a prediction request.
