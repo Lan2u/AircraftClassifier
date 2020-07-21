@@ -32,10 +32,7 @@ class PredictAircraftVariant(TemplateView):
 
         result = {
             'file-name': str(request.FILES['predictFile']),
-            'predictions': json.dumps(stringify)
+            'predictions': stringify
         }
 
-        # with open('temp.jpg', 'wb') as temp:
-        #     for chunk in request.FILES['predictFile'].chunks():
-        #         temp.write(chunk)
         return JsonResponse(result)
